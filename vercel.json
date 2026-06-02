@@ -3,6 +3,6 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/yapping/:id", "destination": "/post.html" }
+    { "source": "/yapping/:id", "destination": "/post" }
   ]
 }
