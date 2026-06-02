@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Povídání — Michal Tvaroh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<script>
+  (function(){
+    try{
+      var s=localStorage.getItem('theme');
+      var t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+      document.documentElement.setAttribute('data-theme',t);
+    }catch(e){document.documentElement.setAttribute('data-theme','light');}
+  })();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="home" href="/">← Michal Tvaroh</a>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Přepnout tmavý režim" aria-pressed="false">
+      <span class="ti-sun" aria-hidden="true">☀</span><span class="ti-moon" aria-hidden="true">☾</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="pagehead">
+    <h1><em>Povídání</em></h1>
+    <p class="sub">Myšlenky, poznámky a všechno mezi tím.</p>
+  </section>
+
+  <section class="posts" id="posts">
+    <p class="empty" id="loading">Načítám…</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footrow">
+    <a class="mono" href="/">© 2026 Michal Tvaroh</a>
+    <a class="mono" href="/admin">Admin</a>
+  </div>
+</footer>
+
+<script>
+  const root=document.documentElement, toggle=document.getElementById('themeToggle');
+  const sync=()=>toggle.setAttribute('aria-pressed', root.getAttribute('data-theme')==='dark');
+  sync();
+  toggle.addEventListener('click', ()=>{
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(e){}
+    sync();
+  });
+
+  const fmt = new Intl.DateTimeFormat('cs-CZ', {day:'numeric',month:'long',year:'numeric'});
+  const container = document.getElementById('posts');
+
+  function render(posts){
+    container.innerHTML='';
+    if(!posts.length){
+      const p=document.createElement('p'); p.className='empty';
+      p.textContent='Zatím tu nic není.'; container.appendChild(p); return;
+    }
+    for(const post of posts){
+      const a=document.createElement('a');
+      a.className='post-card'; a.href='/yapping/'+post.id;
+
+      const t=document.createElement('time');
+      t.dateTime=post.createdAt;
+      t.textContent=fmt.format(new Date(post.createdAt));
+
+      const body=document.createElement('div');
+      body.className='body'; body.textContent=post.excerpt;
+
+      const more=document.createElement('span');
+      more.className='more';
+      more.innerHTML='Číst celé <span class="arr">→</span>';
+
+      a.append(t, body, more);
+      container.appendChild(a);
+    }
+  }
+
+  fetch('/api/posts').then(r=>r.json()).then(d=>render(d.posts||[]))
+    .catch(()=>{ container.innerHTML='<p class="empty">Příspěvky se nepodařilo načíst.</p>'; });
+</script>
+
+</body>
+</html>

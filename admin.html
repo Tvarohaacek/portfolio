@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Admin — Povídání</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<script>
+  (function(){
+    try{
+      var s=localStorage.getItem('theme');
+      var t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+      document.documentElement.setAttribute('data-theme',t);
+    }catch(e){document.documentElement.setAttribute('data-theme','light');}
+  })();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="home" href="/yapping">← Povídání</a>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Přepnout tmavý režim" aria-pressed="false">
+      <span class="ti-sun" aria-hidden="true">☀</span><span class="ti-moon" aria-hidden="true">☾</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap admin">
+  <h1>Admin</h1>
+
+  <!-- LOGIN -->
+  <section id="loginView" class="hidden">
+    <div class="card">
+      <form id="loginForm">
+        <label class="field">
+          <span class="lbl">Heslo</span>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </label>
+        <div class="btn-row"><button class="btn" type="submit">Přihlásit</button></div>
+        <div class="note err" id="loginNote"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- EDITOR -->
+  <section id="editorView" class="hidden">
+    <div class="card">
+      <label class="field">
+        <span class="lbl" id="editorLabel">Nový příspěvek</span>
+        <textarea id="content" placeholder="Pověz něco…"></textarea>
+      </label>
+      <div class="btn-row">
+        <button class="btn" id="saveBtn" type="button">Publikovat</button>
+        <button class="btn ghost hidden" id="cancelBtn" type="button">Zrušit úpravu</button>
+        <button class="btn ghost" id="logoutBtn" type="button" style="margin-left:auto">Odhlásit</button>
+      </div>
+      <div class="note" id="editorNote"></div>
+    </div>
+
+    <div id="adminList" style="margin-top:36px"></div>
+  </section>
+</main>
+
+<script>
+  const root=document.documentElement, toggle=document.getElementById('themeToggle');
+  const sync=()=>toggle.setAttribute('aria-pressed', root.getAttribute('data-theme')==='dark');
+  sync();
+  toggle.addEventListener('click', ()=>{
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(e){}
+    sync();
+  });
+
+  const loginView=document.getElementById('loginView');
+  const editorView=document.getElementById('editorView');
+  const loginNote=document.getElementById('loginNote');
+  const editorNote=document.getElementById('editorNote');
+  const contentEl=document.getElementById('content');
+  const editorLabel=document.getElementById('editorLabel');
+  const saveBtn=document.getElementById('saveBtn');
+  const cancelBtn=document.getElementById('cancelBtn');
+  const list=document.getElementById('adminList');
+  const fmt=new Intl.DateTimeFormat('cs-CZ',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  let editingId=null;
+
+  function showLogin(){ loginView.classList.remove('hidden'); editorView.classList.add('hidden'); }
+  function showEditor(){ editorView.classList.remove('hidden'); loginView.classList.add('hidden'); loadPosts(); }
+
+  function resetEditor(){
+    editingId=null; contentEl.value='';
+    editorLabel.textContent='Nový příspěvek';
+    saveBtn.textContent='Publikovat';
+    cancelBtn.classList.add('hidden');
+  }
+
+  // --- auth ---
+  fetch('/api/me').then(r=>r.json()).then(d=> d.admin ? showEditor() : showLogin()).catch(showLogin);
+
+  document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+    e.preventDefault(); loginNote.textContent='';
+    const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({password:document.getElementById('password').value})});
+    if(res.ok){ document.getElementById('password').value=''; showEditor(); }
+    else { const d=await res.json().catch(()=>({})); loginNote.textContent=d.error||'Přihlášení selhalo'; }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async ()=>{
+    await fetch('/api/logout',{method:'POST'}); resetEditor(); showLogin();
+  });
+
+  // --- editor ---
+  cancelBtn.addEventListener('click', resetEditor);
+
+  saveBtn.addEventListener('click', async ()=>{
+    const content=contentEl.value.trim();
+    editorNote.classList.remove('err'); editorNote.textContent='';
+    if(!content){ editorNote.classList.add('err'); editorNote.textContent='Příspěvek je prázdný.'; return; }
+    saveBtn.disabled=true;
+    const url=editingId ? '/api/posts/'+editingId : '/api/posts';
+    const method=editingId ? 'PUT' : 'POST';
+    const res=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:JSON.stringify({content})});
+    saveBtn.disabled=false;
+    if(res.ok){ editorNote.textContent=editingId?'Uloženo.':'Publikováno.'; resetEditor(); loadPosts(); }
+    else if(res.status===401){ showLogin(); }
+    else { const d=await res.json().catch(()=>({})); editorNote.classList.add('err'); editorNote.textContent=d.error||'Uložení selhalo'; }
+  });
+
+  async function loadPosts(){
+    const d=await fetch('/api/posts').then(r=>r.json()).catch(()=>({posts:[]}));
+    list.innerHTML='';
+    if(!d.posts || !d.posts.length){
+      list.innerHTML='<p class="note">Zatím žádné příspěvky.</p>'; return;
+    }
+    for(const p of d.posts){
+      const wrap=document.createElement('div'); wrap.className='admin-post';
+      const t=document.createElement('time'); t.textContent=fmt.format(new Date(p.createdAt));
+      const prev=document.createElement('div'); prev.className='prev'; prev.textContent=p.excerpt;
+      const row=document.createElement('div'); row.className='btn-row';
+      const edit=document.createElement('button'); edit.className='btn ghost'; edit.textContent='Upravit';
+      const del=document.createElement('button'); del.className='btn danger'; del.textContent='Smazat';
+      edit.addEventListener('click', ()=>startEdit(p.id));
+      del.addEventListener('click', ()=>removePost(p.id));
+      row.append(edit, del);
+      wrap.append(t, prev, row);
+      list.appendChild(wrap);
+    }
+  }
+
+  async function startEdit(id){
+    const d=await fetch('/api/posts/'+id).then(r=>r.json()).catch(()=>null);
+    if(!d || !d.post) return;
+    editingId=id; contentEl.value=d.post.content;
+    editorLabel.textContent='Úprava příspěvku #'+id;
+    saveBtn.textContent='Uložit změny';
+    cancelBtn.classList.remove('hidden');
+    contentEl.focus();
+    contentEl.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  async function removePost(id){
+    if(!confirm('Smazat tento příspěvek?')) return;
+    const res=await fetch('/api/posts/'+id,{method:'DELETE'});
+    if(res.ok){ if(editingId===id) resetEditor(); loadPosts(); }
+    else if(res.status===401){ showLogin(); }
+  }
+</script>
+
+</body>
+</html>

@@ -216,6 +216,8 @@
   /* ---------- FOOTER ---------- */
   footer{padding:50px 0 70px}
   .footrow{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px}
+  .footlink{transition:color .25s}
+  .footlink:hover{color:var(--ink)}
 
   /* ---------- ANIMACE ---------- */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
@@ -393,7 +395,7 @@
 <footer>
   <div class="wrap footrow">
     <span class="mono">&copy; 2026 Michal Tvaroh</span>
-    <span class="mono">Vytvořeno s důrazem na jednoduchost</span>
+    <a class="mono footlink" href="/yapping">Povídání &#8594;</a>
   </div>
 </footer>
 
