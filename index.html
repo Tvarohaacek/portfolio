@@ -194,6 +194,14 @@
     text-transform:uppercase;color:var(--muted);
     border:1px solid var(--line);border-radius:999px;padding:4px 11px;
   }
+  .work .wrefs{margin-top:14px}
+  .work .wrefs a{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink);
+    border:1px solid var(--line-strong);border-radius:999px;padding:5px 13px;
+    display:inline-flex;align-items:center;gap:7px;transition:background .25s,color .25s;
+  }
+  .work .wrefs a:hover{background:var(--ink);color:var(--paper)}
   .work .wyear{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
 
   /* ---------- KONTAKTY ---------- */
@@ -344,15 +352,16 @@
             <div class="wyear">2025</div>
           </a>
 
-          <a class="work reveal" href="#">
+          <div class="work reveal">
             <div class="wnum">03</div>
             <div>
-              <div class="wtitle">Audit doporučovacích algoritmů <span class="arr">&#8594;</span></div>
+              <div class="wtitle">Audit doporučovacích algoritmů</div>
               <div class="wdesc">Výzkumný projekt o automatizovaném auditu doporučovacích systémů sociálních sítí. Sběr a analýza dat v Pythonu.</div>
               <div class="wtags"><span>Python</span><span>pandas</span><span>Jupyter</span></div>
+              <div class="wrefs"><a href="/docs/SOC.pdf" target="_blank" rel="noopener">SOČ &#8594;</a></div>
             </div>
             <div class="wyear">2025</div>
-          </a>
+          </div>
 
           <a class="work reveal" href="#">
             <div class="wnum">04</div>
