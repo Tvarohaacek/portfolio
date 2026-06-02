@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michal Tvaroh — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f5f3;
+    --ink:#131313;
+    --muted:#6e6e6e;
+    --line:#d4d4d2;
+    --line-strong:#131313;
+    --maxw:1180px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+  .mono{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:20px 32px;max-width:var(--maxw);margin:0 auto;
+  }
+  .markname{
+    font-family:'Fraunces',serif;
+    font-weight:600;font-size:19px;letter-spacing:-.01em;
+  }
+  .navlinks{display:flex;gap:30px}
+  .navlinks a{
+    font-family:'Space Mono',monospace;font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    position:relative;padding-bottom:3px;transition:color .25s;
+  }
+  .navlinks a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--ink);transition:width .3s ease;
+  }
+  .navlinks a:hover{color:var(--ink)}
+  .navlinks a:hover::after{width:100%}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:120px 0 100px;border-bottom:1px solid var(--line)}
+  .hero .kicker{margin-bottom:38px}
+  .hero h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(52px,11vw,148px);
+    line-height:.92;
+    letter-spacing:-.03em;
+    margin-bottom:34px;
+  }
+  .hero h1 em{font-style:italic;font-weight:400}
+  .hero .lead{
+    max-width:560px;font-size:20px;line-height:1.5;color:#2a2a2a;
+  }
+
+  /* ---------- SECTION GRID ---------- */
+  section.block{
+    padding:84px 0;border-bottom:1px solid var(--line);
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:48px;
+  }
+  .sec-index{
+    font-family:'Space Mono',monospace;
+    font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    position:sticky;top:90px;align-self:start;
+  }
+  .sec-index .num{
+    display:block;font-family:'Fraunces',serif;font-size:46px;font-weight:600;
+    color:var(--ink);letter-spacing:0;margin-bottom:8px;line-height:1;
+  }
+  .sec-title{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(30px,5vw,52px);line-height:1.02;letter-spacing:-.02em;
+    margin-bottom:42px;
+  }
+
+  /* ---------- ŽIVOTOPIS ---------- */
+  .bio{max-width:620px;font-size:18px;color:#262626;margin-bottom:54px}
+  .bio p+p{margin-top:18px}
+
+  .deflist{border-top:1px solid var(--line-strong)}
+  .deflist .row{
+    display:grid;grid-template-columns:200px 1fr;gap:24px;
+    padding:22px 0;border-bottom:1px solid var(--line);
+  }
+  .deflist .row dt{
+    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);padding-top:3px;
+  }
+  .deflist .row dd{font-size:17px}
+  .deflist .row dd .yr{color:var(--muted);font-family:'Space Mono',monospace;font-size:12px;margin-left:6px}
+  .skillgroup{margin-bottom:4px}
+  .skillgroup strong{font-weight:600}
+
+  /* ---------- PRÁCE ---------- */
+  .worklist{border-top:1px solid var(--line-strong)}
+  .work{
+    display:grid;grid-template-columns:54px 1fr auto;gap:24px;align-items:start;
+    padding:30px 0;border-bottom:1px solid var(--line);
+    position:relative;transition:padding-left .35s ease;
+  }
+  .work:hover{padding-left:18px}
+  .work::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+    background:var(--ink);transform:scaleY(0);transform-origin:top;
+    transition:transform .35s ease;
+  }
+  .work:hover::before{transform:scaleY(1)}
+  .work .wnum{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
+  .work .wtitle{
+    font-family:'Fraunces',serif;font-weight:600;font-size:25px;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:14px;
+  }
+  .work .wtitle .arr{
+    display:inline-block;font-family:'Space Mono',monospace;font-size:18px;
+    opacity:0;transform:translateX(-8px);transition:all .35s ease;
+  }
+  .work:hover .wtitle .arr{opacity:1;transform:translateX(0)}
+  .work .wdesc{margin-top:8px;color:#2c2c2c;font-size:16px;max-width:620px}
+  .work .wtags{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .work .wtags span{
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;padding:4px 11px;
+  }
+  .work .wyear{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
+
+  /* ---------- KONTAKTY ---------- */
+  .contacts{border-top:1px solid var(--line-strong)}
+  .contacts a.crow{
+    display:grid;grid-template-columns:200px 1fr auto;gap:24px;align-items:center;
+    padding:24px 0;border-bottom:1px solid var(--line);transition:padding-left .3s ease;
+  }
+  .contacts a.crow:hover{padding-left:14px}
+  .contacts .clabel{
+    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .contacts .cval{
+    font-family:'Fraunces',serif;font-size:24px;font-weight:500;letter-spacing:-.01em;
+  }
+  .contacts .cgo{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted)}
+  .contacts a.crow:hover .cgo{color:var(--ink)}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:50px 0 70px}
+  .footrow{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px}
+
+  /* ---------- ANIMACE ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+  .hero .kicker,.hero h1,.hero .lead{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero h1{animation-delay:.12s}
+  .hero .lead{animation-delay:.24s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .hero .kicker,.hero h1,.hero .lead{transform:translateY(20px)}
+
+  @media (max-width:760px){
+    .bar{padding:16px 22px}
+    .navlinks{gap:18px}
+    .wrap{padding:0 22px}
+    .grid{grid-template-columns:1fr;gap:18px}
+    .sec-index{position:static}
+    .sec-index .num{font-size:34px}
+    .deflist .row{grid-template-columns:1fr;gap:6px}
+    .work{grid-template-columns:1fr;gap:6px}
+    .work .wyear{padding-top:0}
+    .contacts a.crow{grid-template-columns:1fr;gap:4px}
+    .hero{padding:70px 0 60px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a href="#top" class="markname">Michal Tvaroh</a>
+    <nav class="navlinks">
+      <a href="#zivotopis">Životopis</a>
+      <a href="#prace">Práce</a>
+      <a href="#kontakty">Kontakty</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker mono">Vývojář &nbsp;/&nbsp; Student IT &nbsp;/&nbsp; Česká republika</div>
+      <h1>Michal<br><em>Tvaroh</em></h1>
+      <p class="lead">Stavím weby, aplikace a datové nástroje. Zajímá mě webový vývoj, počítačové sítě a zpracování dat – a jednoduchá řešení, která dávají smysl.</p>
+    </div>
+  </section>
+
+  <!-- 01 ŽIVOTOPIS -->
+  <section class="block" id="zivotopis">
+    <div class="wrap grid">
+      <div class="sec-index"><span class="num">01</span>Životopis</div>
+      <div>
+        <h2 class="sec-title reveal">Kdo jsem a&nbsp;co umím</h2>
+
+        <div class="bio reveal">
+          <p>Jsem student informatiky se zaměřením na webový vývoj a počítačové sítě. Baví mě stavět věci, které jsou jednoduché na použití a poctivě postavené i pod kapotou – od rozhraní až po databázi.</p>
+          <p>Kromě školních projektů se věnuji vlastním nápadům, datové analýze a tomu, co mě baví mimo techniku – hudbě a webové kultuře.</p>
+        </div>
+
+        <dl class="deflist reveal">
+          <div class="row">
+            <dt>Vzdělání</dt>
+            <dd>
+              <div class="skillgroup"><strong>Gymnázium</strong> – maturita z informatiky <span class="yr">2022–2026</span></div>
+            </dd>
+          </div>
+          <div class="row">
+            <dt>Frontend</dt>
+            <dd>React, TypeScript, Vite, HTML &amp; CSS</dd>
+          </div>
+          <div class="row">
+            <dt>Backend</dt>
+            <dd>Node.js, Express, REST API, SQLite / Neo4j</dd>
+          </div>
+          <div class="row">
+            <dt>Data</dt>
+            <dd>Python, pandas, NumPy, vizualizace dat</dd>
+          </div>
+          <div class="row">
+            <dt>Sítě</dt>
+            <dd>TCP/IP, VLAN, směrování, Cisco IOS</dd>
+          </div>
+          <div class="row">
+            <dt>Jazyky</dt>
+            <dd>Čeština – rodilý mluvčí &nbsp;·&nbsp; Angličtina – pokročilá</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PRÁCE -->
+  <section class="block" id="prace">
+    <div class="wrap grid">
+      <div class="sec-index"><span class="num">02</span>Práce</div>
+      <div>
+        <h2 class="sec-title reveal">Vybrané projekty</h2>
+
+        <div class="worklist">
+          <a class="work reveal" href="#">
+            <div class="wnum">01</div>
+            <div>
+              <div class="wtitle">Webová aplikace pro sbírku <span class="arr">&#8594;</span></div>
+              <div class="wdesc">Full-stack aplikace na evidenci a kategorizaci sbírky včetně nahrávání obrázků. Vlastní backend i frontend.</div>
+              <div class="wtags"><span>React</span><span>Express</span><span>SQLite</span></div>
+            </div>
+            <div class="wyear">2025</div>
+          </a>
+
+          <a class="work reveal" href="#">
+            <div class="wnum">02</div>
+            <div>
+              <div class="wtitle">Finanční koordinátor <span class="arr">&#8594;</span></div>
+              <div class="wdesc">Nástroj pro přehled cashflow a detekci anomálií nad grafovou databází. Dashboard s analytikou.</div>
+              <div class="wtags"><span>TypeScript</span><span>Neo4j</span><span>Docker</span></div>
+            </div>
+            <div class="wyear">2025</div>
+          </a>
+
+          <a class="work reveal" href="#">
+            <div class="wnum">03</div>
+            <div>
+              <div class="wtitle">Audit doporučovacích algoritmů <span class="arr">&#8594;</span></div>
+              <div class="wdesc">Výzkumný projekt o automatizovaném auditu doporučovacích systémů sociálních sítí. Sběr a analýza dat v Pythonu.</div>
+              <div class="wtags"><span>Python</span><span>pandas</span><span>Jupyter</span></div>
+            </div>
+            <div class="wyear">2025</div>
+          </a>
+
+          <a class="work reveal" href="#">
+            <div class="wnum">04</div>
+            <div>
+              <div class="wtitle">Hudební zpravodajský web <span class="arr">&#8594;</span></div>
+              <div class="wdesc">Obsahový web o rockové hudbě – návrh značky, struktury a publikačního systému.</div>
+              <div class="wtags"><span>Next.js</span><span>Obsah</span><span>Design</span></div>
+            </div>
+            <div class="wyear">2024</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 KONTAKTY -->
+  <section class="block" id="kontakty">
+    <div class="wrap grid">
+      <div class="sec-index"><span class="num">03</span>Kontakty</div>
+      <div>
+        <h2 class="sec-title reveal">Ozvěte se</h2>
+        <div class="contacts reveal">
+          <a class="crow" href="mailto:michal.tvaroh07@gmail.com">
+            <span class="clabel">E-mail</span>
+            <span class="cval">michal.tvaroh07@gmail.com</span>
+            <span class="cgo">Napsat &#8594;</span>
+          </a>
+          <a class="crow" href="https://github.com/Tvarohaacek" target="_blank" rel="noopener">
+            <span class="clabel">GitHub</span>
+            <span class="cval">github.com/Tvarohaacek</span>
+            <span class="cgo">Otevřít &#8594;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footrow">
+    <span class="mono">&copy; 2026 Michal Tvaroh</span>
+    <span class="mono">Vytvořeno s důrazem na jednoduchost</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
