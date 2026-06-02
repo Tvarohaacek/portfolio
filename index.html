@@ -162,6 +162,11 @@
   .deflist .row dd .yr{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;margin-left:6px}
   .skillgroup{margin-bottom:4px}
   .skillgroup strong{font-weight:600}
+  .skillgroup a{
+    text-decoration:underline;text-underline-offset:3px;
+    text-decoration-color:var(--line);transition:text-decoration-color .25s,color .25s;
+  }
+  .skillgroup a:hover{text-decoration-color:var(--ink)}
 
   /* ---------- PRÁCE ---------- */
   .worklist{border-top:1px solid var(--line-strong)}
@@ -296,7 +301,7 @@
           <div class="row">
             <dt>Vzdělání</dt>
             <dd>
-              <div class="skillgroup"><strong>Gymnázium</strong> – maturita z informatiky <span class="yr">2022–2026</span></div>
+              <div class="skillgroup"><strong><a href="https://www.delta-skola.cz/" target="_blank" rel="noopener">Delta S.Š.I.E.</a></strong><span class="yr">2022–2026</span></div>
             </dd>
           </div>
           <div class="row">
