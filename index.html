@@ -6,29 +6,49 @@
 <title>Michal Tvaroh — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script>
+  (function(){
+    try{
+      var s=localStorage.getItem('theme');
+      var t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+      document.documentElement.setAttribute('data-theme',t);
+    }catch(e){document.documentElement.setAttribute('data-theme','light');}
+  })();
+</script>
 <style>
   :root{
     --paper:#f5f5f3;
     --ink:#131313;
+    --soft:#2a2a2a;
     --muted:#6e6e6e;
     --line:#d4d4d2;
     --line-strong:#131313;
     --maxw:1180px;
   }
 
+  [data-theme="dark"]{
+    --paper:#101010;
+    --ink:#f4f4f1;
+    --soft:#c9c9c6;
+    --muted:#8c8c8a;
+    --line:#2b2b29;
+    --line-strong:#f4f4f1;
+  }
+
   *{margin:0;padding:0;box-sizing:border-box}
 
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;color-scheme:light dark}
 
   body{
     background:var(--paper);
     color:var(--ink);
-    font-family:'Archivo',sans-serif;
+    font-family:'Inter',sans-serif;
     font-size:17px;
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
+    transition:background .4s ease,color .4s ease;
   }
 
   ::selection{background:var(--ink);color:var(--paper)}
@@ -38,7 +58,7 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
 
   .mono{
-    font-family:'Space Mono',monospace;
+    font-family:'JetBrains Mono',monospace;
     font-size:12px;
     letter-spacing:.14em;
     text-transform:uppercase;
@@ -56,12 +76,12 @@
     padding:20px 32px;max-width:var(--maxw);margin:0 auto;
   }
   .markname{
-    font-family:'Fraunces',serif;
+    font-family:'Newsreader',serif;
     font-weight:600;font-size:19px;letter-spacing:-.01em;
   }
   .navlinks{display:flex;gap:30px}
   .navlinks a{
-    font-family:'Space Mono',monospace;font-size:12px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;
     letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
     position:relative;padding-bottom:3px;transition:color .25s;
   }
@@ -72,11 +92,24 @@
   .navlinks a:hover{color:var(--ink)}
   .navlinks a:hover::after{width:100%}
 
+  .navright{display:flex;align-items:center;gap:26px}
+  .theme-toggle{
+    background:none;border:1px solid var(--line);border-radius:999px;
+    width:36px;height:36px;cursor:pointer;color:var(--ink);line-height:1;
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+    transition:border-color .25s,background .25s,color .25s,transform .25s;
+  }
+  .theme-toggle:hover{border-color:var(--line-strong);transform:rotate(12deg)}
+  .theme-toggle .ti-sun{display:none}
+  .theme-toggle .ti-moon{display:block}
+  [data-theme="dark"] .theme-toggle .ti-sun{display:block}
+  [data-theme="dark"] .theme-toggle .ti-moon{display:none}
+
   /* ---------- HERO ---------- */
   .hero{padding:120px 0 100px;border-bottom:1px solid var(--line)}
   .hero .kicker{margin-bottom:38px}
   .hero h1{
-    font-family:'Fraunces',serif;
+    font-family:'Newsreader',serif;
     font-weight:500;
     font-size:clamp(52px,11vw,148px);
     line-height:.92;
@@ -85,7 +118,7 @@
   }
   .hero h1 em{font-style:italic;font-weight:400}
   .hero .lead{
-    max-width:560px;font-size:20px;line-height:1.5;color:#2a2a2a;
+    max-width:560px;font-size:20px;line-height:1.5;color:var(--soft);
   }
 
   /* ---------- SECTION GRID ---------- */
@@ -98,22 +131,22 @@
     gap:48px;
   }
   .sec-index{
-    font-family:'Space Mono',monospace;
+    font-family:'JetBrains Mono',monospace;
     font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
     position:sticky;top:90px;align-self:start;
   }
   .sec-index .num{
-    display:block;font-family:'Fraunces',serif;font-size:46px;font-weight:600;
+    display:block;font-family:'Newsreader',serif;font-size:46px;font-weight:600;
     color:var(--ink);letter-spacing:0;margin-bottom:8px;line-height:1;
   }
   .sec-title{
-    font-family:'Fraunces',serif;font-weight:600;
+    font-family:'Newsreader',serif;font-weight:600;
     font-size:clamp(30px,5vw,52px);line-height:1.02;letter-spacing:-.02em;
     margin-bottom:42px;
   }
 
   /* ---------- ŽIVOTOPIS ---------- */
-  .bio{max-width:620px;font-size:18px;color:#262626;margin-bottom:54px}
+  .bio{max-width:620px;font-size:18px;color:var(--soft);margin-bottom:54px}
   .bio p+p{margin-top:18px}
 
   .deflist{border-top:1px solid var(--line-strong)}
@@ -122,11 +155,11 @@
     padding:22px 0;border-bottom:1px solid var(--line);
   }
   .deflist .row dt{
-    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;
     text-transform:uppercase;color:var(--muted);padding-top:3px;
   }
   .deflist .row dd{font-size:17px}
-  .deflist .row dd .yr{color:var(--muted);font-family:'Space Mono',monospace;font-size:12px;margin-left:6px}
+  .deflist .row dd .yr{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;margin-left:6px}
   .skillgroup{margin-bottom:4px}
   .skillgroup strong{font-weight:600}
 
@@ -144,24 +177,24 @@
     transition:transform .35s ease;
   }
   .work:hover::before{transform:scaleY(1)}
-  .work .wnum{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
+  .work .wnum{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
   .work .wtitle{
-    font-family:'Fraunces',serif;font-weight:600;font-size:25px;letter-spacing:-.01em;
+    font-family:'Newsreader',serif;font-weight:600;font-size:25px;letter-spacing:-.01em;
     display:flex;align-items:center;gap:14px;
   }
   .work .wtitle .arr{
-    display:inline-block;font-family:'Space Mono',monospace;font-size:18px;
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:18px;
     opacity:0;transform:translateX(-8px);transition:all .35s ease;
   }
   .work:hover .wtitle .arr{opacity:1;transform:translateX(0)}
-  .work .wdesc{margin-top:8px;color:#2c2c2c;font-size:16px;max-width:620px}
+  .work .wdesc{margin-top:8px;color:var(--soft);font-size:16px;max-width:620px}
   .work .wtags{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
   .work .wtags span{
-    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
     text-transform:uppercase;color:var(--muted);
     border:1px solid var(--line);border-radius:999px;padding:4px 11px;
   }
-  .work .wyear{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
+  .work .wyear{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);padding-top:6px}
 
   /* ---------- KONTAKTY ---------- */
   .contacts{border-top:1px solid var(--line-strong)}
@@ -171,13 +204,13 @@
   }
   .contacts a.crow:hover{padding-left:14px}
   .contacts .clabel{
-    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;
     text-transform:uppercase;color:var(--muted);
   }
   .contacts .cval{
-    font-family:'Fraunces',serif;font-size:24px;font-weight:500;letter-spacing:-.01em;
+    font-family:'Newsreader',serif;font-size:24px;font-weight:500;letter-spacing:-.01em;
   }
-  .contacts .cgo{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted)}
+  .contacts .cgo{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted)}
   .contacts a.crow:hover .cgo{color:var(--ink)}
 
   /* ---------- FOOTER ---------- */
@@ -213,11 +246,16 @@
 <header>
   <div class="bar">
     <a href="#top" class="markname">Michal Tvaroh</a>
-    <nav class="navlinks">
-      <a href="#zivotopis">Životopis</a>
-      <a href="#prace">Práce</a>
-      <a href="#kontakty">Kontakty</a>
-    </nav>
+    <div class="navright">
+      <nav class="navlinks">
+        <a href="#zivotopis">Životopis</a>
+        <a href="#prace">Práce</a>
+        <a href="#kontakty">Kontakty</a>
+      </nav>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Přepnout tmavý režim" aria-pressed="false">
+        <span class="ti-sun" aria-hidden="true">☀</span><span class="ti-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -364,6 +402,16 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const root=document.documentElement, toggle=document.getElementById('themeToggle');
+  const sync=()=>toggle.setAttribute('aria-pressed', root.getAttribute('data-theme')==='dark');
+  sync();
+  toggle.addEventListener('click', ()=>{
+    const next=root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(e){}
+    sync();
+  });
 </script>
 
 </body>
