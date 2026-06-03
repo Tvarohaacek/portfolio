@@ -14,6 +14,11 @@
       var t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
       document.documentElement.setAttribute('data-theme',t);
     }catch(e){document.documentElement.setAttribute('data-theme','light');}
+    try{
+      var l=localStorage.getItem('lang')||'cs';
+      document.documentElement.setAttribute('data-lang',l);
+      document.documentElement.setAttribute('lang',l);
+    }catch(e){document.documentElement.setAttribute('data-lang','cs');}
   })();
 </script>
 <style>
@@ -104,6 +109,18 @@
   .theme-toggle .ti-moon{display:block}
   [data-theme="dark"] .theme-toggle .ti-sun{display:block}
   [data-theme="dark"] .theme-toggle .ti-moon{display:none}
+
+  .lang-toggle{
+    background:none;border:1px solid var(--line);border-radius:999px;
+    height:36px;padding:0 13px;cursor:pointer;color:var(--muted);line-height:1;
+    display:flex;align-items:center;gap:5px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;
+    transition:border-color .25s;
+  }
+  .lang-toggle:hover{border-color:var(--line-strong)}
+  .lang-toggle .lg-sep{opacity:.45}
+  [data-lang="cs"] .lang-toggle .lg-cz{color:var(--ink)}
+  [data-lang="en"] .lang-toggle .lg-en{color:var(--ink)}
 
   /* ---------- HERO ---------- */
   .hero{padding:120px 0 100px;border-bottom:1px solid var(--line)}
@@ -263,11 +280,14 @@
     <a href="#top" class="markname">Michal Tvaroh</a>
     <div class="navright">
       <nav class="navlinks">
-        <a href="#zivotopis">Životopis</a>
-        <a href="#prace">Práce</a>
-        <a href="#kontakty">Kontakty</a>
+        <a href="#zivotopis" data-i18n="nav.about">Životopis</a>
+        <a href="#prace" data-i18n="nav.work">Práce</a>
+        <a href="#kontakty" data-i18n="nav.contact">Kontakty</a>
       </nav>
-      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Přepnout tmavý režim" aria-pressed="false">
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Switch language / Přepnout jazyk">
+        <span class="lg-cz" aria-hidden="true">CZ</span><span class="lg-sep" aria-hidden="true">/</span><span class="lg-en" aria-hidden="true">EN</span>
+      </button>
+      <button id="themeToggle" class="theme-toggle" type="button" data-i18n-aria="theme.toggle" aria-label="Přepnout tmavý režim" aria-pressed="false">
         <span class="ti-sun" aria-hidden="true">☀</span><span class="ti-moon" aria-hidden="true">☾</span>
       </button>
     </div>
@@ -279,27 +299,27 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <div class="kicker mono">Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Česká republika</div>
+      <div class="kicker mono" data-i18n="hero.kicker">Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Česká republika</div>
       <h1>Michal<br><em>Tvaroh</em></h1>
-      <p class="lead">Dělám věci všeho druhu, hlavně tak, aby mi dávaly smysl. Dělám weby, systémy a rozvíjím se.</p>
+      <p class="lead" data-i18n="hero.lead">Dělám věci všeho druhu, hlavně tak, aby mi dávaly smysl. Dělám weby, systémy a rozvíjím se.</p>
     </div>
   </section>
 
   <!-- 01 ŽIVOTOPIS -->
   <section class="block" id="zivotopis">
     <div class="wrap grid">
-      <div class="sec-index"><span class="num">01</span>Životopis</div>
+      <div class="sec-index"><span class="num">01</span><span data-i18n="nav.about">Životopis</span></div>
       <div>
-        <h2 class="sec-title reveal">Kdo jsem a&nbsp;co umím</h2>
+        <h2 class="sec-title reveal" data-i18n="bio.title">Kdo jsem a&nbsp;co umím</h2>
 
         <div class="bio reveal">
-          <p>Od roku 2026 jsem studentem Karlovy univerzity, konkrétně oboru fyzika. Na střední jsem se ale naučil programovat, využívat AI jako pomocníka nejen k práci, ale i k rozvoji.
+          <p data-i18n="bio.body">Od roku 2026 jsem studentem Karlovy univerzity, konkrétně oboru fyzika. Na střední jsem se ale naučil programovat, využívat AI jako pomocníka nejen k práci, ale i k rozvoji.
           Mimo jiné se věnuju hudbě a záleží mi, jak trávím svůj čas.</p>
         </div>
 
         <dl class="deflist reveal">
           <div class="row">
-            <dt>Vzdělání</dt>
+            <dt data-i18n="bio.education">Vzdělání</dt>
             <dd>
               <div class="skillgroup"><strong><a href="https://www.delta-skola.cz/" target="_blank" rel="noopener">Delta S.Š.I.E.</a></strong><span class="yr">2022–2026</span></div>
             </dd>
@@ -314,11 +334,11 @@
           </div>
           <div class="row">
             <dt>Data</dt>
-            <dd>Python, pandas, NumPy, vizualizace dat</dd>
+            <dd data-i18n="bio.data">Python, pandas, NumPy, vizualizace dat</dd>
           </div>
           <div class="row">
-            <dt>Jazyky</dt>
-            <dd>Čeština – rodilý mluvčí &nbsp;·&nbsp; Angličtina – C1</dd>
+            <dt data-i18n="bio.languages">Jazyky</dt>
+            <dd data-i18n="bio.languages.val">Čeština – rodilý mluvčí &nbsp;·&nbsp; Angličtina – C1</dd>
           </div>
         </dl>
       </div>
@@ -330,19 +350,19 @@
 
   <section class="block" id="prace">
     <div class="wrap grid">
-      <div class="sec-index"><span class="num">02</span>Práce</div>
+      <div class="sec-index"><span class="num">02</span><span data-i18n="nav.work">Práce</span></div>
       <div>
-        <h2 class="sec-title reveal">Vybrané projekty</h2>
+        <h2 class="sec-title reveal" data-i18n="work.title">Vybrané projekty</h2>
 
         <div class="worklist">
 
           <div class="work reveal">
             <div class="wnum">01</div>
             <div>
-              <div class="wtitle">Audit doporučovacích algoritmů</div>
-              <div class="wdesc">Výzkumný projekt o automatizovaném auditu doporučovacích systémů sociálních sítí. Sběr a analýza dat v Pythonu. Spolupráce se slovenským institutem <a href="https://kinit.sk/">KInIT</a>. Vítězná práce v kategorii informatiky v Pardubickém kraji v roce 2026.</div>
+              <div class="wtitle" data-i18n="work.1.title">Audit doporučovacích algoritmů</div>
+              <div class="wdesc" data-i18n="work.1.desc">Výzkumný projekt o automatizovaném auditu doporučovacích systémů sociálních sítí. Sběr a analýza dat v Pythonu. Spolupráce se slovenským institutem <a href="https://kinit.sk/">KInIT</a>. Vítězná práce v kategorii informatiky v Pardubickém kraji v roce 2026.</div>
               <div class="wtags"><span>Python</span><span>Pandas</span><span>Matplotlib</span></div>
-              <div class="wrefs"><a href="/docs/SOC.pdf" target="_blank" rel="noopener">Práce Středoškolské Odborné Činnosti &#8594;</a></div>
+              <div class="wrefs"><a href="/docs/SOC.pdf" target="_blank" rel="noopener" data-i18n="work.1.ref">Práce Středoškolské Odborné Činnosti &#8594;</a></div>
             </div>
             <div class="wyear">2025</div>
           </div>
@@ -350,8 +370,8 @@
           <a class="work reveal" href="https://github.com/Tvarohaacek/PivniSberatel">
             <div class="wnum">02</div>
             <div>
-              <div class="wtitle">Webová aplikace pro sbírku <span class="arr">&#8594;</span></div>
-              <div class="wdesc">Full-stack aplikace na evidenci a kategorizaci sbírky včetně nahrávání obrázků. Vlastní backend i frontend.</div>
+              <div class="wtitle" data-i18n="work.2.title">Webová aplikace pro sbírku <span class="arr">&#8594;</span></div>
+              <div class="wdesc" data-i18n="work.2.desc">Full-stack aplikace na evidenci a kategorizaci sbírky včetně nahrávání obrázků. Vlastní backend i frontend.</div>
               <div class="wtags"><span>React</span><span>Express</span><span>SQLite</span></div>
             </div>
             <div class="wyear">2025</div>
@@ -360,8 +380,8 @@
           <a class="work reveal" href="https://github.com/Tvarohaacek/Penize">
             <div class="wnum">03</div>
             <div>
-              <div class="wtitle">Finanční koordinátor <span class="arr">&#8594;</span></div>
-              <div class="wdesc">Nástroj pro přehled cashflow a detekci anomálií nad grafovou databází. Dashboard s analytikou.</div>
+              <div class="wtitle" data-i18n="work.3.title">Finanční koordinátor <span class="arr">&#8594;</span></div>
+              <div class="wdesc" data-i18n="work.3.desc">Nástroj pro přehled cashflow a detekci anomálií nad grafovou databází. Dashboard s analytikou.</div>
               <div class="wtags"><span>TypeScript</span><span>Neo4j</span><span>Docker</span></div>
             </div>
             <div class="wyear">2025</div>
@@ -372,9 +392,9 @@
           <a class="work reveal" href="#">
             <div class="wnum">04</div>
             <div>
-              <div class="wtitle">Hudební zpravodajský web <span class="arr">&#8594;</span></div>
-              <div class="wdesc">Obsahový web o rockové hudbě – návrh značky, struktury a publikačního systému.</div>
-              <div class="wtags"><span>Next.js</span><span>Obsah</span><span>Design</span></div>
+              <div class="wtitle" data-i18n="work.4.title">Hudební zpravodajský web <span class="arr">&#8594;</span></div>
+              <div class="wdesc" data-i18n="work.4.desc">Obsahový web o rockové hudbě – návrh značky, struktury a publikačního systému.</div>
+              <div class="wtags"><span>Next.js</span><span data-i18n="work.4.tag">Obsah</span><span>Design</span></div>
             </div>
             <div class="wyear">2024</div>
           </a>
@@ -386,19 +406,19 @@
   <!-- 03 KONTAKTY -->
   <section class="block" id="kontakty">
     <div class="wrap grid">
-      <div class="sec-index"><span class="num">03</span>Kontakty</div>
+      <div class="sec-index"><span class="num">03</span><span data-i18n="nav.contact">Kontakty</span></div>
       <div>
-        <h2 class="sec-title reveal">Ozvěte se</h2>
+        <h2 class="sec-title reveal" data-i18n="contact.title">Ozvěte se</h2>
         <div class="contacts reveal">
           <a class="crow" href="mailto:michal.tvaroh07@gmail.com">
             <span class="clabel">E-mail</span>
             <span class="cval">michal.tvaroh07@gmail.com</span>
-            <span class="cgo">Napsat &#8594;</span>
+            <span class="cgo" data-i18n="contact.write">Napsat &#8594;</span>
           </a>
           <a class="crow" href="https://github.com/Tvarohaacek" target="_blank" rel="noopener">
             <span class="clabel">GitHub</span>
             <span class="cval">github.com/Tvarohaacek</span>
-            <span class="cgo">Otevřít &#8594;</span>
+            <span class="cgo" data-i18n="contact.open">Otevřít &#8594;</span>
           </a>
         </div>
       </div>
@@ -410,7 +430,7 @@
 <footer>
   <div class="wrap footrow">
     <span class="mono">&copy; 2026 Michal Tvaroh</span>
-    <a class="mono footlink" href="/yapping">Povídání &#8594;</a>
+    <a class="mono footlink" href="/yapping" data-i18n="footer.yapping">Povídání &#8594;</a>
   </div>
 </footer>
 
@@ -428,6 +448,67 @@
     root.setAttribute('data-theme', next);
     try{ localStorage.setItem('theme', next); }catch(e){}
     sync();
+  });
+
+  /* ---------- LANGUAGE (CZ / EN) ---------- */
+  const i18n = {
+    en: {
+      'nav.about':'About',
+      'nav.work':'Work',
+      'nav.contact':'Contact',
+      'hero.kicker':'Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Czech Republic',
+      'hero.lead':'I build all sorts of things — above all, things that make sense to me. I make websites, systems, and keep growing.',
+      'bio.title':'Who I am &amp; what I do',
+      'bio.body':'Since 2026 I’ve been a student at Charles University, studying physics. But it was in high school that I learned to program and to use AI as a helper — not only for work, but for growth. Beyond that, I make music and care about how I spend my time.',
+      'bio.education':'Education',
+      'bio.data':'Python, pandas, NumPy, data visualization',
+      'bio.languages':'Languages',
+      'bio.languages.val':'Czech – native speaker &nbsp;·&nbsp; English – C1',
+      'work.title':'Selected projects',
+      'work.1.title':'Auditing recommendation algorithms',
+      'work.1.desc':'A research project on the automated auditing of social-media recommendation systems. Data collection and analysis in Python. In collaboration with the Slovak institute <a href="https://kinit.sk/">KInIT</a>. Winning project in the computer-science category of the Pardubice Region in 2026.',
+      'work.1.ref':'Secondary-school research paper (SOČ) &#8594;',
+      'work.2.title':'Web app for a collection <span class="arr">&#8594;</span>',
+      'work.2.desc':'Full-stack app for cataloging and categorizing a collection, including image uploads. Custom backend and frontend.',
+      'work.3.title':'Financial coordinator <span class="arr">&#8594;</span>',
+      'work.3.desc':'A tool for cashflow overview and anomaly detection over a graph database. Dashboard with analytics.',
+      'work.4.title':'Music news website <span class="arr">&#8594;</span>',
+      'work.4.desc':'Content site about rock music — design of the brand, structure and publishing system.',
+      'work.4.tag':'Content',
+      'contact.title':'Get in touch',
+      'contact.write':'Write &#8594;',
+      'contact.open':'Open &#8594;',
+      'footer.yapping':'Yapping &#8594;'
+    }
+  };
+  const ariaI18n = {
+    'theme.toggle':{cs:'Přepnout tmavý režim', en:'Toggle dark mode'}
+  };
+
+  // Capture the original Czech markup so we can switch back without a dictionary.
+  const orig = new Map();
+  document.querySelectorAll('[data-i18n]').forEach(el=>orig.set(el, el.innerHTML));
+
+  function applyLang(lang){
+    const dict = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      el.innerHTML = (lang==='en' && dict && dict[key]!=null) ? dict[key] : orig.get(el);
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+      const m = ariaI18n[el.getAttribute('data-i18n-aria')];
+      if(m && m[lang]) el.setAttribute('aria-label', m[lang]);
+    });
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang);
+  }
+
+  const langToggle=document.getElementById('langToggle');
+  applyLang(root.getAttribute('data-lang')==='en' ? 'en' : 'cs');
+  langToggle.addEventListener('click', ()=>{
+    const next = root.getAttribute('data-lang')==='en' ? 'cs' : 'en';
+    applyLang(next);
+    try{ localStorage.setItem('lang', next); }catch(e){}
   });
 </script>
 
