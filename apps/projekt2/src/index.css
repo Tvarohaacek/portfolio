@@ -1,0 +1,982 @@
+/* ------------------------------------------------------------------ */
+/* Tokeny                                                              */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --paper: #f4f1e8;
+  --paper-2: #ebe5d7;
+  --ink: #212a1e;
+  --ink-2: rgba(33, 42, 30, 0.72);
+  --pine: #2e4630;
+  --forest: #202f1c;
+  --line: rgba(33, 42, 30, 0.16);
+  --line-light: rgba(244, 241, 232, 0.22);
+  --font: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --nav-h: 4.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Základ                                                              */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--pine);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--pine);
+  outline-offset: 3px;
+}
+
+.contact :focus-visible,
+.footer :focus-visible,
+.hero :focus-visible {
+  outline-color: var(--paper);
+}
+
+.container {
+  width: min(1180px, 100% - clamp(2.5rem, 8vw, 5rem));
+  margin-inline: auto;
+}
+
+/* Podklad, dokud se fotka nenačte */
+.intro__media img,
+.restaurant__media img,
+.room__media,
+.spot__media,
+.hero {
+  background-color: rgba(33, 42, 30, 0.1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Typografie                                                          */
+/* ------------------------------------------------------------------ */
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 650;
+  max-width: 24ch;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  max-width: 62ch;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pine);
+  margin-bottom: 1.25rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+}
+
+.eyebrow--light {
+  color: rgba(244, 241, 232, 0.9);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tlačítka                                                            */
+/* ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.6rem;
+  background: var(--pine);
+  color: var(--paper);
+  border: 1px solid var(--pine);
+  border-radius: 2px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.btn--light {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--forest);
+}
+
+.btn--light:hover {
+  background: var(--paper-2);
+  border-color: var(--paper-2);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: rgba(244, 241, 232, 0.55);
+  color: var(--paper);
+}
+
+.btn--ghost:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--forest);
+}
+
+.btn--small {
+  padding: 0.6rem 1.15rem;
+  font-size: 0.72rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navigace                                                            */
+/* ------------------------------------------------------------------ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 50;
+  color: var(--paper);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.nav--solid {
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  height: var(--nav-h);
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.nav__brand svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.nav__links {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+}
+
+.nav__links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.nav__links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+.nav__cta {
+  background: transparent;
+  border-color: currentColor;
+  color: inherit;
+}
+
+.nav:not(.nav--solid) .nav__cta:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--forest);
+}
+
+.nav--solid .nav__cta:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-inline: auto;
+  background: currentColor;
+  transition: transform 0.25s ease;
+}
+
+.nav__burger[aria-expanded="true"] span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.nav__burger[aria-expanded="true"] span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+.nav__overlay {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem) 2.5rem;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-y: auto;
+}
+
+.nav__overlay a:not(.btn) {
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.nav__overlay-cta {
+  margin-top: 2rem;
+  align-self: flex-start;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100svh;
+  background-size: cover;
+  background-position: center;
+  color: var(--paper);
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 33, 21, 0.52);
+}
+
+.hero__content {
+  position: relative;
+  padding-top: calc(var(--nav-h) + 2rem);
+  padding-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+
+.hero h1 {
+  font-size: clamp(4.2rem, 13vw, 9.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.hero__lead {
+  max-width: 33rem;
+  margin-top: 1.5rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: rgba(244, 241, 232, 0.92);
+  text-wrap: pretty;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.25rem;
+}
+
+.hero__meta {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line-light);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.85);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sekce – společné                                                    */
+/* ------------------------------------------------------------------ */
+
+.section {
+  padding-block: clamp(4.5rem, 10vw, 7.5rem);
+  scroll-margin-top: var(--nav-h);
+}
+
+.section--tinted {
+  background: var(--paper-2);
+}
+
+.section__head {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.5rem 4rem;
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section__intro {
+  max-width: 30rem;
+  color: var(--ink-2);
+  justify-self: end;
+}
+
+.section__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem 2rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.section__foot p {
+  max-width: 34rem;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* O Pasece                                                            */
+/* ------------------------------------------------------------------ */
+
+.intro {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.intro__text p + p {
+  margin-top: 1.1rem;
+  color: var(--ink-2);
+}
+
+.intro__text h2 + p {
+  margin-top: 1.75rem;
+}
+
+.intro__sign {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  font-weight: 600;
+  color: var(--pine);
+}
+
+.intro__sign::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+}
+
+.intro__media img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.intro__media figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding: 0;
+  border-block: 1px solid var(--line);
+  list-style: none;
+}
+
+.stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+  border-left: 1px solid var(--line);
+}
+
+.stats li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.stats strong {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.stats span {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* Restaurace                                                          */
+/* ------------------------------------------------------------------ */
+
+.restaurant {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.restaurant__media img:first-child {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.restaurant__media img:last-child {
+  width: 68%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin: -18% 0 0 auto;
+  border: 8px solid var(--paper-2);
+}
+
+.menu__title {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.menu {
+  padding: 0;
+  list-style: none;
+}
+
+.menu__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1.5rem;
+  padding-block: 1.05rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.menu__name {
+  font-weight: 600;
+}
+
+.menu__price {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.menu__desc {
+  grid-column: 1;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.menu__note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.restaurant__menu .btn {
+  margin-top: 1.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Pokoje                                                              */
+/* ------------------------------------------------------------------ */
+
+.rooms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.room__media {
+  overflow: hidden;
+}
+
+.room__media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.room:hover .room__media img {
+  transform: scale(1.04);
+}
+
+.room__body {
+  padding-top: 1.15rem;
+}
+
+.room__meta {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.room__desc {
+  margin-top: 0.65rem;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+}
+
+.room__price {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/* Okolí                                                               */
+/* ------------------------------------------------------------------ */
+
+.spots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.spot__media {
+  overflow: hidden;
+}
+
+.spot__media img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.spot:hover .spot__media img {
+  transform: scale(1.04);
+}
+
+.spot h3 {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+}
+
+.spot p {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* Kontakt                                                             */
+/* ------------------------------------------------------------------ */
+
+.contact {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 7vw, 6rem);
+  align-items: start;
+}
+
+.contact__lead {
+  margin-top: 1.75rem;
+  color: rgba(244, 241, 232, 0.8);
+}
+
+.contact__info {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 2.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.contact__info li {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.contact__info span {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.6);
+}
+
+.contact__info strong {
+  font-weight: 600;
+}
+
+.contact__info a {
+  text-decoration: none;
+}
+
+.contact__info a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.hours {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--line-light);
+}
+
+.hours > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--line-light);
+  font-size: 0.95rem;
+}
+
+.hours dt {
+  color: rgba(244, 241, 232, 0.65);
+}
+
+.hours dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Formulář */
+
+.form {
+  display: grid;
+  gap: 1.15rem;
+  align-content: start;
+}
+
+.form label {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.7);
+}
+
+.form input,
+.form textarea {
+  padding: 0.85rem 1rem;
+  background: rgba(244, 241, 232, 0.06);
+  border: 1px solid var(--line-light);
+  border-radius: 2px;
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--paper);
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+  color: rgba(244, 241, 232, 0.4);
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: var(--paper);
+}
+
+.form textarea {
+  resize: vertical;
+}
+
+.form .btn {
+  justify-self: start;
+  margin-top: 0.35rem;
+}
+
+.form__note {
+  font-size: 0.8rem;
+  color: rgba(244, 241, 232, 0.5);
+}
+
+.form__sent {
+  padding: 2.25rem;
+  border: 1px solid var(--line-light);
+  border-radius: 2px;
+}
+
+.form__sent strong {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.form__sent p {
+  margin-top: 0.5rem;
+  color: rgba(244, 241, 232, 0.75);
+}
+
+/* ------------------------------------------------------------------ */
+/* Patička                                                             */
+/* ------------------------------------------------------------------ */
+
+.footer {
+  background: var(--forest);
+  color: var(--paper);
+  border-top: 1px solid var(--line-light);
+  padding-block: 2.75rem 2rem;
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem 2rem;
+}
+
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer__brand svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer nav a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.footer nav a:hover {
+  opacity: 1;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-light);
+  font-size: 0.8rem;
+  color: rgba(244, 241, 232, 0.55);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responzivita                                                        */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__burger {
+    display: flex;
+  }
+
+  .section__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .section__intro {
+    justify-self: start;
+  }
+
+  .intro,
+  .restaurant,
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rooms {
+    grid-template-columns: 1fr;
+    max-width: 34rem;
+  }
+
+  .spots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats li {
+    padding: 1.25rem 1rem 1.25rem 1.25rem;
+  }
+
+  .stats li:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .stats li:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .spots {
+    grid-template-columns: 1fr;
+  }
+
+  .spot__media img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .hero__meta span:nth-child(2) {
+    display: none;
+  }
+}

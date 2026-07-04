@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Papír a inkoust */
+    --background: 0 0% 100%;
+    --foreground: 225 64% 15%;
+    --ink: 225 64% 15%;
+    --ink-deep: 226 63% 11%;
+    --mist: 220 69% 97%;
+    --line: 221 51% 93%;
+    --muted-foreground: 222 23% 38%;
+
+    /* Primární modrá (důvěra, CTA) */
+    --primary: 229 74% 53%;
+    --primary-dark: 230 69% 45%;
+    --primary-soft: 228 100% 96%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Medová (zvýrazňovač, známky, hvězdy) */
+    --honey: 40 100% 56%;
+    --honey-soft: 42 100% 94%;
+    --honey-foreground: 225 64% 15%;
+
+    /* Stavové barvy a formuláře */
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 221 51% 93%;
+    --input: 221 45% 86%;
+    --ring: 229 74% 53%;
+
+    --radius: 1rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Odsazení kotev kvůli sticky navigaci */
+    scroll-padding-top: 5.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-background font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--honey) / 0.55);
+    color: hsl(var(--ink));
+  }
+}
+
+@layer utilities {
+  /* Čtverečkovaný sešit – podpis značky v hero sekci */
+  .bg-grid-paper {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--line) / 0.8) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, hsl(var(--line) / 0.8) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .bg-grid-paper-dark {
+    background-image: linear-gradient(
+        to right,
+        hsl(0 0% 100% / 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, hsl(0 0% 100% / 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+}

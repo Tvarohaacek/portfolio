@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Základní SEO -->
+    <title>Online doučování matematiky a češtiny | NaJedničku</title>
+    <meta
+      name="description"
+      content="Individuální online doučování matematiky a českého jazyka pro ZŠ a SŠ. Příprava na přijímačky CERMAT i maturitu. Nezávazná konzultace zdarma, odpovídáme do 24 hodin."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.najednicku.cz/" />
+    <meta name="theme-color" content="#2e4fe0" />
+
+    <!-- Ikony -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:url" content="https://www.najednicku.cz/" />
+    <meta property="og:site_name" content="NaJedničku" />
+    <meta
+      property="og:title"
+      content="Online doučování matematiky a češtiny | NaJedničku"
+    />
+    <meta
+      property="og:description"
+      content="Individuální online lekce pro ZŠ a SŠ. Příprava na přijímačky CERMAT i maturitu. Nezávazná konzultace zdarma."
+    />
+    <meta property="og:image" content="https://www.najednicku.cz/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="NaJedničku – online doučování, které je vidět na známkách"
+    />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Online doučování matematiky a češtiny | NaJedničku"
+    />
+    <meta
+      name="twitter:description"
+      content="Individuální online lekce pro ZŠ a SŠ. Příprava na přijímačky CERMAT i maturitu. Nezávazná konzultace zdarma."
+    />
+    <meta name="twitter:image" content="https://www.najednicku.cz/og.png" />
+
+    <!--
+      Strukturovaná data (JSON-LD).
+      Pozn.: FAQ níže musí obsahově odpovídat sekci FAQ v src/data/faq.ts.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.najednicku.cz/#organizace",
+            "name": "NaJedničku – online doučování",
+            "url": "https://www.najednicku.cz/",
+            "logo": "https://www.najednicku.cz/apple-touch-icon.png",
+            "email": "doucovani@najednicku.cz",
+            "telephone": "+420777123456",
+            "areaServed": "CZ",
+            "sameAs": [
+              "https://www.instagram.com/najednicku",
+              "https://www.facebook.com/najednicku"
+            ]
+          },
+          {
+            "@type": "Service",
+            "@id": "https://www.najednicku.cz/#sluzba",
+            "name": "Online doučování matematiky a českého jazyka",
+            "serviceType": "Doučování",
+            "provider": { "@id": "https://www.najednicku.cz/#organizace" },
+            "areaServed": "CZ",
+            "availableChannel": {
+              "@type": "ServiceChannel",
+              "serviceUrl": "https://www.najednicku.cz/#kontakt",
+              "availableLanguage": "cs"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Nabídka doučování",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Online doučování matematiky"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Online doučování českého jazyka"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Příprava na přijímací zkoušky CERMAT"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Příprava na maturitu"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Doučování ostatních předmětů dle domluvy"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.najednicku.cz/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Jak probíhá první lekce?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Před první lekcí si krátce zavoláme – konzultace je zdarma a nezávazná. Na úvodní lekci pak zmapujeme, co student umí, kde jsou mezery, a domluvíme si konkrétní plán a cíle."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Co potřebujeme k online výuce?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Stačí počítač nebo notebook s kamerou, mikrofonem a stabilním internetem. Lekce probíhají přes Google Meet a sdílenou interaktivní tabuli – vše je zdarma a nic se neinstaluje."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Jak dlouho trvá jedna lekce?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Standardní lekce trvá 60 minut. U příprav na přijímačky a maturitu se osvědčily i 90minutové bloky – záleží na věku studenta a domluvě."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Kolik doučování stojí?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Individuální lekce 60 minut vychází od 400 Kč podle předmětu a ročníku. Při nákupu balíčku 10 lekcí získáte zvýhodněnou cenu. Konkrétní nabídku dostanete po nezávazné konzultaci."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Jak často by měly lekce probíhat?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Nejčastěji jednou až dvakrát týdně. Před přijímačkami a maturitou doporučujeme frekvenci zvýšit. Plán vždy nastavíme podle cíle a časových možností studenta."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Co když nám termín nevyjde?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Lekci lze zdarma přesunout nebo zrušit nejpozději 24 hodin předem. Hledáme náhradní termín, aby student nevypadl z tempa."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Jak probíhá platba?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Platí se převodem na účet – buď po jednotlivých lekcích, nebo předem za balíček. Žádné závazky ani dlouhodobé smlouvy."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Za jak dlouho uvidíme výsledky?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "První posun bývá vidět po 4–6 týdnech pravidelných lekcí – student se přestává bát ptát a zvládá úlohy samostatněji. Známky se obvykle zlepšují během jednoho pololetí."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Doučujete i jiné předměty než matematiku a češtinu?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ano, po domluvě také angličtinu, fyziku, chemii či informatiku. Napište nám do poznámky, o jaký předmět máte zájem, a ozveme se s možnostmi."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Jsou lekce vhodné i pro mladší děti?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ano, online formu zvládají už žáci od 3.–4. třídy. U mladších dětí volíme kratší aktivity, časté střídání tempa a úzkou komunikaci s rodiči."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
