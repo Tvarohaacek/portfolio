@@ -40,11 +40,11 @@ export default function Intro() {
             <span>postavena hájovna</span>
           </li>
           <li>
-            <strong>10</strong>
-            <span>pokojů v patře</span>
+            <strong>3</strong>
+            <span>pokoje v patře</span>
           </li>
           <li>
-            <strong>40</strong>
+            <strong>20</strong>
             <span>míst u stolu</span>
           </li>
           <li>

@@ -1,3 +1,4 @@
+
 /** Sestaví URL stock fotky z Unsplash v požadované šířce. */
 export const unsplash = (id: string, w = 1600): string =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
