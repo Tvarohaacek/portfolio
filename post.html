@@ -39,9 +39,52 @@
 <footer>
   <div class="wrap footrow">
     <a class="mono" href="/">© 2026 Michal Tvaroh</a>
-    <a class="mono" href="/yapping">Všechny příspěvky</a>
+    <div style="display:flex;gap:26px">
+      <a class="mono" href="#" id="cookieSettingsLink">Cookies</a>
+      <a class="mono" href="/yapping">Všechny příspěvky</a>
+    </div>
   </div>
 </footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Souhlas s cookies">
+  <div class="inner">
+    <p>Používám technické cookies nezbytné pro chod webu (např. uložení tématu a jazyka) a volitelně analytické cookies pro měření návštěvnosti. Nastavení kdykoliv změníte v patičce.</p>
+    <div class="cookie-actions">
+      <button class="cookie-btn" id="cookieOpenSettings" type="button">Nastavení</button>
+      <button class="cookie-btn" id="cookieRejectOptional" type="button">Pouze nezbytné</button>
+      <button class="cookie-btn primary" id="cookieAcceptAll" type="button">Přijmout vše</button>
+    </div>
+  </div>
+</div>
+
+<div class="cookie-modal-overlay" id="cookieModalOverlay">
+  <div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookieModalTitle">
+    <button class="cookie-close" id="cookieModalClose" type="button" aria-label="Zavřít">&#10005;</button>
+    <h2 id="cookieModalTitle">Nastavení cookies</h2>
+    <p class="desc">Vyberte, které cookies mohu používat. Nezbytné cookies nelze vypnout, protože bez nich web nefunguje správně.</p>
+
+    <div class="cookie-cat">
+      <div>
+        <div class="cat-label">Nezbytné</div>
+        <div class="cat-desc">Ukládají zvolené téma a jazyk. Vždy aktivní.</div>
+      </div>
+      <div class="cookie-toggle on disabled" role="switch" aria-checked="true" aria-disabled="true" aria-label="Nezbytné cookies"></div>
+    </div>
+
+    <div class="cookie-cat">
+      <div>
+        <div class="cat-label">Analytické</div>
+        <div class="cat-desc">Pomáhají mi pochopit návštěvnost webu. Zapnou se jen s vaším souhlasem.</div>
+      </div>
+      <div class="cookie-toggle" id="cookieAnalyticsToggle" role="switch" aria-checked="false" tabindex="0" aria-label="Analytické cookies"></div>
+    </div>
+
+    <div class="cookie-modal-actions">
+      <button class="cookie-btn" id="cookieSaveSettings" type="button">Uložit nastavení</button>
+      <button class="cookie-btn primary" id="cookieAcceptAllModal" type="button">Přijmout vše</button>
+    </div>
+  </div>
+</div>
 
 <script>
   const root=document.documentElement, toggle=document.getElementById('themeToggle');
@@ -92,6 +135,54 @@
       fail(e.message==='404' ? 'Příspěvek nenalezen.' : 'Příspěvek se nepodařilo načíst.');
     });
   }
+</script>
+
+<script>
+  /* ---------- COOKIE CONSENT ---------- */
+  (function(){
+    const KEY='cookieConsent';
+    function readConsent(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
+    function writeConsent(c){ try{ localStorage.setItem(KEY, JSON.stringify(c)); }catch(e){} }
+    window.hasAnalyticsConsent = function(){ const c=readConsent(); return !!(c && c.analytics); };
+
+    const banner=document.getElementById('cookieBanner');
+    const overlay=document.getElementById('cookieModalOverlay');
+    const analyticsToggle=document.getElementById('cookieAnalyticsToggle');
+
+    const openModal=()=>overlay.classList.add('show');
+    const closeModal=()=>overlay.classList.remove('show');
+    const hideBanner=()=>banner.classList.remove('show');
+    const showBanner=()=>banner.classList.add('show');
+
+    function applyToggleState(analytics){
+      analyticsToggle.classList.toggle('on', !!analytics);
+      analyticsToggle.setAttribute('aria-checked', String(!!analytics));
+    }
+
+    const existing=readConsent();
+    if(existing) applyToggleState(existing.analytics);
+    else setTimeout(showBanner, 600);
+
+    analyticsToggle.addEventListener('click', ()=>applyToggleState(!analyticsToggle.classList.contains('on')));
+    analyticsToggle.addEventListener('keydown', (e)=>{
+      if(e.key===' ' || e.key==='Enter'){ e.preventDefault(); analyticsToggle.click(); }
+    });
+
+    document.getElementById('cookieOpenSettings').addEventListener('click', openModal);
+    document.getElementById('cookieSettingsLink').addEventListener('click', (e)=>{ e.preventDefault(); openModal(); });
+    document.getElementById('cookieModalClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+    function acceptAll(){ writeConsent({necessary:true, analytics:true, ts:Date.now()}); applyToggleState(true); hideBanner(); closeModal(); }
+    function necessaryOnly(){ writeConsent({necessary:true, analytics:false, ts:Date.now()}); applyToggleState(false); hideBanner(); closeModal(); }
+    function saveSettings(){ writeConsent({necessary:true, analytics:analyticsToggle.classList.contains('on'), ts:Date.now()}); hideBanner(); closeModal(); }
+
+    document.getElementById('cookieAcceptAll').addEventListener('click', acceptAll);
+    document.getElementById('cookieAcceptAllModal').addEventListener('click', acceptAll);
+    document.getElementById('cookieRejectOptional').addEventListener('click', necessaryOnly);
+    document.getElementById('cookieSaveSettings').addEventListener('click', saveSettings);
+  })();
 </script>
 
 </body>
