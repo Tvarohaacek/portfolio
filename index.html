@@ -259,8 +259,12 @@
   .hero .kicker,.hero h1,.hero .lead{transform:translateY(20px)}
 
   @media (max-width:760px){
-    .bar{padding:16px 22px}
-    .navlinks{gap:18px}
+    .bar{padding:16px 22px;flex-wrap:wrap;justify-content:flex-start;column-gap:14px;row-gap:14px}
+    .navright{display:contents}
+    .markname{order:1}
+    .lang-toggle{order:2;margin-left:auto}
+    .theme-toggle{order:3}
+    .navlinks{order:4;flex-basis:100%;justify-content:flex-end;gap:20px}
     .wrap{padding:0 22px}
     .grid{grid-template-columns:1fr;gap:18px}
     .sec-index{position:static}
@@ -299,7 +303,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <div class="kicker mono" data-i18n="hero.kicker">Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Česká republika</div>
+      <div class="kicker mono" data-i18n="hero.kicker">Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Česká&nbsp;republika</div>
       <h1>Michal<br><em>Tvaroh</em></h1>
       <p class="lead" data-i18n="hero.lead">Dělám věci všeho druhu, hlavně tak, aby mi dávaly smysl. Dělám weby, systémy a rozvíjím se.</p>
     </div>
@@ -444,7 +448,7 @@
       'nav.about':'About',
       'nav.work':'Work',
       'nav.contact':'Contact',
-      'hero.kicker':'Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Czech Republic',
+      'hero.kicker':'Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Czech&nbsp;Republic',
       'hero.lead':'I build all sorts of things — above all, things that make sense to me. I make websites, systems, and keep growing.',
       'bio.title':'Who I am &amp; what I do',
       'bio.body':'Since 2026 I’ve been a student at Charles University, studying physics. But it was in high school that I learned to program and to use AI as a helper — not only for work, but for growth. Beyond that, I make music and care about how I spend my time.',
