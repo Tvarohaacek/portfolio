@@ -133,10 +133,20 @@
     letter-spacing:-.03em;
     margin-bottom:34px;
   }
-  .hero h1 em{font-style:italic;font-weight:400}
   .hero .lead{
     max-width:560px;font-size:20px;line-height:1.5;color:var(--soft);
   }
+  .hero-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px 32px;flex-wrap:wrap;margin-bottom:34px}
+  .hero-top h1{margin-bottom:0}
+  .cv-btn{
+    display:inline-flex;align-items:center;gap:10px;flex-shrink:0;
+    font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--ink);
+    border:1px solid var(--line-strong);border-radius:999px;
+    padding:15px 30px;white-space:nowrap;
+    transition:background .25s,color .25s;
+  }
+  .cv-btn:hover{background:var(--ink);color:var(--paper)}
 
   /* ---------- SECTION GRID ---------- */
   section.block{
@@ -252,11 +262,12 @@
   /* ---------- ANIMACE ---------- */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
   .reveal.in{opacity:1;transform:none}
-  .hero .kicker,.hero h1,.hero .lead{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero .kicker,.hero h1,.hero .lead,.hero .cv-btn{opacity:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
   .hero h1{animation-delay:.12s}
+  .hero .cv-btn{animation-delay:.18s}
   .hero .lead{animation-delay:.24s}
   @keyframes rise{to{opacity:1;transform:none}}
-  .hero .kicker,.hero h1,.hero .lead{transform:translateY(20px)}
+  .hero .kicker,.hero h1,.hero .lead,.hero .cv-btn{transform:translateY(20px)}
 
   @media (max-width:760px){
     .bar{padding:16px 22px;flex-wrap:wrap;justify-content:flex-start;column-gap:14px;row-gap:14px}
@@ -274,6 +285,8 @@
     .work .wyear{padding-top:0}
     .contacts a.crow{grid-template-columns:1fr;gap:4px}
     .hero{padding:70px 0 60px}
+    .hero-top{align-items:flex-start}
+    .cv-btn{padding:12px 22px;font-size:13px}
   }
 
   /* ---------- COOKIE CONSENT ---------- */
@@ -373,7 +386,10 @@
   <section class="hero">
     <div class="wrap">
       <div class="kicker mono" data-i18n="hero.kicker">Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Česká&nbsp;republika</div>
-      <h1>Michal<br><em>Tvaroh</em></h1>
+      <div class="hero-top">
+        <h1>Michal<br>Tvaroh</h1>
+        <a class="cv-btn" id="cvButton" href="/docs/Zivotopis_Michal_Tvaroh.pdf" target="_blank" rel="noopener" data-i18n="hero.cv">Stáhnout životopis &#8594;</a>
+      </div>
       <p class="lead" data-i18n="hero.lead">Dělám věci všeho druhu, hlavně tak, aby mi dávaly smysl. Od webů přes systémy.</p>
     </div>
   </section>
@@ -562,6 +578,7 @@
       'nav.contact':'Contact',
       'hero.kicker':'Developer &nbsp;/&nbsp; Student &nbsp;/&nbsp; Czech&nbsp;Republic',
       'hero.lead':'I build all sorts of things — above all, things that make sense to me. I make websites, systems, and keep growing.',
+      'hero.cv':'Download CV &#8594;',
       'bio.title':'Who I am &amp; what I do',
       'bio.body':'Since 2026 I’ve been a student at Charles University, studying physics. But it was in high school that I learned to program and to use AI as a helper — not only for work, but for growth. Beyond that, I make music and care about how I spend my time.',
       'bio.education':'Education',
@@ -601,6 +618,7 @@
     'cookies.necessary':{cs:'Nezbytné cookies', en:'Necessary cookies'},
     'cookies.analytics':{cs:'Analytické cookies', en:'Analytics cookies'}
   };
+  const cvHref = {cs:'/docs/Zivotopis_Michal_Tvaroh.pdf', en:'/docs/CV_Michal_Tvaroh_EN.pdf'};
 
   // Capture the original Czech markup so we can switch back without a dictionary.
   const orig = new Map();
@@ -616,6 +634,8 @@
       const m = ariaI18n[el.getAttribute('data-i18n-aria')];
       if(m && m[lang]) el.setAttribute('aria-label', m[lang]);
     });
+    const cvButton = document.getElementById('cvButton');
+    if(cvButton) cvButton.setAttribute('href', cvHref[lang] || cvHref.cs);
     root.setAttribute('data-lang', lang);
     root.setAttribute('lang', lang);
   }
