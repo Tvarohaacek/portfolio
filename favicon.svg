@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .paper{fill:#f5f5f3}
+    .ink{fill:#131313}
+    @media (prefers-color-scheme: dark){
+      .paper{fill:#101010}
+      .ink{fill:#f4f4f1}
+    }
+  </style>
+  <rect width="64" height="64" rx="12" class="paper"/>
+  <text x="32" y="45" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-size="38" font-weight="500" class="ink">M</text>
+</svg>
