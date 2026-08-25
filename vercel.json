@@ -4,6 +4,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/yapping/:id", "destination": "/post" },
+    { "source": "/kvizy/:id", "destination": "/kviz" },
     { "source": "/projekt1/:path*", "destination": "/projekt1/index.html" },
     { "source": "/projekt2/:path*", "destination": "/projekt2/index.html" }
   ]
